@@ -10,15 +10,13 @@ logging.getLogger("sqlalchemy.engine").setLevel(logging.INFO)
 # Carregar variáveis do arquivo .env
 load_dotenv()
 
-# Configuração do banco de dados
+# Criar a engine de conexão com o banco de dados
 engine = create_engine(os.getenv("DATABASE_URL"))
-
-# Criar a(s) tabela(s) no banco de dados
-SQLModel.metadata.create_all(engine)
 
 # Inicializa o banco de dados
 def create_db_and_tables() -> None:
     SQLModel.metadata.create_all(engine)
 
+# Retorna uma sessão do banco de dados
 def get_session() -> Session:
     return Session(engine)
